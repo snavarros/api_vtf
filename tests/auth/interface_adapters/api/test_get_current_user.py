@@ -2,9 +2,9 @@ import pytest
 from unittest.mock import AsyncMock
 from jose import jwt
 
-from app.auth.interface_adapters.api.dependencies.auth import get_current_user
+from app.auth.interface_adapters.dependencies.auth import get_current_user
 from app.config.settings import settings
-from app.usuario.domain.user import User
+from app.user.domain.user import User
 
 
 @pytest.mark.asyncio

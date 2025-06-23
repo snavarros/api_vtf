@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import AsyncMock, Mock
 from app.auth.application.use_cases.authenticate_user import AuthenticateUser
 from datetime import timedelta
-from app.usuario.domain.user import User
+from app.user.domain.user import User
 from app.config.settings import settings
 
 

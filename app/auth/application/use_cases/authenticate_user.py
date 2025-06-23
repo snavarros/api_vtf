@@ -1,7 +1,7 @@
 from datetime import timedelta
 from app.auth.application.ports.auth_service import IAuthService
 from app.config.settings import settings
-from app.usuario.application.ports.user_repository import IUserRepository
+from app.user.application.ports.user_repository import IUserRepository
 
 
 class AuthenticateUser:

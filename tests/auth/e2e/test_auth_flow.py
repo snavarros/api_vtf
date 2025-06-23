@@ -1,19 +1,26 @@
 import pytest
-from httpx import AsyncClient
-from main import app
+from httpx import ASGITransport, AsyncClient
+from app.main import app
 from fastapi import status
 
 
 @pytest.mark.asyncio
 async def test_auth_flow(override_get_db):
-    async with AsyncClient(app=app, base_url="http://test") as client:
+    # Usar ASGITransport para probar FastAPI sin servidor externo
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
         # 1. Registro de usuario
         user_data = {
+            "name": "Sebastián",
+            "lastName": "Navarro",
             "email": "testuser@example.com",
-            "password": "Test1234!",
-            "name": "Test",
-            "lastName": "User",
+            "hashed_password": "Test1234!",
+            "phone": "+12345678",
             "region": 1,
+            "role": "default",
+            "is_admin": True,
+            "is_active": True,
+            "provider": "local",
         }
 
         response = await client.post("/auth/register", json=user_data)

@@ -1,4 +1,4 @@
-from app.usuario.domain.user import User
+from app.user.domain.user import User
 
 
 def user_factory(orm_user) -> User:

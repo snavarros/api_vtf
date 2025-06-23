@@ -4,6 +4,16 @@ from app.main import app
 
 
 @pytest.fixture(scope="function")
+async def override_get_db(db_session):
+    async def _override():
+        yield db_session
+
+    app.dependency_overrides[get_db] = _override
+    yield
+    app.dependency_overrides.pop(get_db, None)
+
+
+@pytest.fixture(scope="function")
 async def db_session():
     from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
     from app.config.database import Base
@@ -17,11 +27,3 @@ async def db_session():
     async with async_session() as session:
         yield session
         await session.rollback()
-
-
-@pytest.fixture
-async def override_get_db(db_session):
-    async def _override():
-        yield db_session
-
-    app.dependency_overrides[get_db] = _override

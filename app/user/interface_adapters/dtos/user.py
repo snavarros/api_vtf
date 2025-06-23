@@ -3,10 +3,10 @@ from typing import Annotated, Optional
 
 
 class UserCreate(BaseModel):
-    name: Optional[str]
+    name: str | None
     lastName: Optional[str]
     email: EmailStr
-    password: Annotated[
+    hashed_password: Annotated[
         str,
         StringConstraints(min_length=8),
     ]
@@ -14,13 +14,14 @@ class UserCreate(BaseModel):
     region: int
     role: Optional[str] = "default"
     is_admin: Optional[bool] = False
+    is_active: Optional[bool] = False
     provider: Optional[str] = "local"
 
 
 class UserUpdate(BaseModel):
     name: Optional[str]
     lastName: Optional[str]
-    password: Annotated[
+    hashed_password: Annotated[
         str,
         StringConstraints(min_length=8),
     ]

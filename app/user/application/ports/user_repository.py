@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-from app.usuario.domain.user import User
+from app.user.domain.user import User
 
 
 class IUserRepository(ABC):
@@ -10,9 +10,9 @@ class IUserRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, user: User) -> User:
+    def create(self, user: User) -> User | None:
         pass
 
     @abstractmethod
-    def update(self, user: User) -> User:
+    def update(self, user: User) -> User | None:
         pass

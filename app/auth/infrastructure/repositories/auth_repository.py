@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.usuario.domain.user import User
+from sqlalchemy import select
+from app.user.domain.user import User
 
 
 class AuthRepository:

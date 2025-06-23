@@ -1,8 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from app.usuario.application.ports.user_repository import IUserRepository
-from app.usuario.domain.user import User
+from app.user.application.ports.user_repository import IUserRepository
+from app.user.infrastructure.orm.models import User
 
 
 class UserRepository(IUserRepository):
@@ -14,7 +14,7 @@ class UserRepository(IUserRepository):
         return result.scalar_one_or_none()
 
     async def create(self, user: User) -> User:
-        self.session.add(User)
+        self.session.add(user)
         await self.session.commit()
         await self.session.refresh(user)
         return user

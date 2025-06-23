@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.config.database import Base, get_engine
 from app.auth.infrastructure.api import auth_routes
-from app.usuario.infrastructure.api import user_routes
+from app.user.infrastructure.api import user_routes
 
 
 @asynccontextmanager
@@ -16,11 +16,6 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-
-
-@app.get("/")
-def check_status():
-    return {"Server": "Running ⚡"}
 
 
 app.include_router(auth_routes.router)

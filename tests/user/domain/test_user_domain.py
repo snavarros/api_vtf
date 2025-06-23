@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 import pytest
-from app.usuario.domain.user import User
+from app.user.domain.user import User
 
 
 def test_should_create_user():
@@ -41,7 +41,7 @@ def test_should_fail_create_user_with_incorrect_email():
             is_active=True,
             provider="local",
             region=8,
-            email="example@",  # O simplemente omitirlo si lo haces opcional en la firma
+            email="example@",
         )
 
 
