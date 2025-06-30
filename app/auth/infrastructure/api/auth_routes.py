@@ -22,10 +22,10 @@ async def login(
     use_case: AuthenticateUser = Depends(get_authenticate_user),
 ):
     token = await use_case.authenticate(credentials.email, credentials.password)
-    return AuthPresenter.present_token(token)
+    return AuthPresenter.presenter_token(token)
 
 
-@router.post("/register")
+@router.post("/register", status_code=status.HTTP_201_CREATED)
 async def register_user(
     user_data: UserCreate,
     use_case: UserUseCases = Depends(get_user_use_cases),

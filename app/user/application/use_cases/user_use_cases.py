@@ -23,7 +23,7 @@ class UserUseCases:
 
         user = User(
             name=user_data.name,
-            lastName=user_data.lastName,
+            last_name=user_data.last_name,
             email=user_data.email,
             hashed_password=hashed_password,
             phone=user_data.phone,

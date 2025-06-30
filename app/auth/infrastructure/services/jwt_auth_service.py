@@ -12,10 +12,12 @@ class AuthServiceJWT(IAuthService):
     def get_password_hash(self, password) -> str:
         return pwd_context.hash(password)
 
-    def verify_password(plain_password: str, hashed_password: str) -> bool:
+    def verify_password(self, plain_password: str, hashed_password: str) -> bool:
         return pwd_context.verify(plain_password, hashed_password)
 
-    def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
+    def create_access_token(
+        self, data: dict, expires_delta: timedelta | None = None
+    ) -> str:
         to_encode = data.copy()
         expire = datetime.now(tz=timezone.utc) + (
             expires_delta or timedelta(minutes=30)
@@ -23,7 +25,7 @@ class AuthServiceJWT(IAuthService):
         to_encode.update({"exp": expire})
         return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
-    def decode_access_token(token: str):
+    def decode_access_token(self, token: str):
         try:
             return jwt.decode(
                 token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
@@ -31,12 +33,12 @@ class AuthServiceJWT(IAuthService):
         except JWTError:
             return None
 
-    def create_reset_token(email: str, expires_minutes: int = 15):
+    def create_reset_token(self, email: str, expires_minutes: int = 15):
         expire = datetime.now(tz=timezone.utc) + timedelta(minutes=expires_minutes)
         payload = {"sub": email, "exp": expire}
         return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
-    def verify_reset_token(token: str):
+    def verify_reset_token(self, token: str):
         try:
             payload = jwt.decode(
                 token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]

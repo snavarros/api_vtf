@@ -4,7 +4,7 @@ from typing import Annotated, Optional
 
 class UserCreate(BaseModel):
     name: str | None
-    lastName: Optional[str]
+    last_name: Optional[str]
     email: EmailStr
     hashed_password: Annotated[
         str,
@@ -20,7 +20,7 @@ class UserCreate(BaseModel):
 
 class UserUpdate(BaseModel):
     name: Optional[str]
-    lastName: Optional[str]
+    last_name: Optional[str]
     hashed_password: Annotated[
         str,
         StringConstraints(min_length=8),
